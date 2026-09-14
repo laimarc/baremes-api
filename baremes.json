@@ -1,17 +1,17 @@
 {
   "frais_repas": {
-    "montant_forfaitaire_journalier": 5.50
+    "montant_forfaitaire_journalier": 5.5
   },
   "bareme_kilometrique": {
     "3cv": {
       "inf_5000": 0.529,
       "mid_multiplicateur": 0.316,
       "mid_fixe": 1065.0,
-      "sup_20000": 0.370
+      "sup_20000": 0.37
     },
     "4cv": {
       "inf_5000": 0.606,
-      "mid_multiplicateur": 0.340,
+      "mid_multiplicateur": 0.34,
       "mid_fixe": 1330.0,
       "sup_20000": 0.407
     },
@@ -31,7 +31,7 @@
       "inf_5000": 0.697,
       "mid_multiplicateur": 0.394,
       "mid_fixe": 1515.0,
-      "sup_20000": 0.470
+      "sup_20000": 0.47
     }
   }
 }
