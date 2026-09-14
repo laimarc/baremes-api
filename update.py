@@ -1,30 +1,24 @@
-name: Mettre à jour les barèmes automatiquement
+import json
+import urllib.request
 
-on:
-  schedule:
-    - cron: '0 0 1 * *'
-  workflow_dispatch: # Permet le lancement manuel
+url_officielle = "https://www.service-public.gouv.fr/particuliers/actualites/A14686"
 
-permissions:
-  contents: write
+req = urllib.request.Request(
+    url_officielle, 
+    headers={'User-Agent': 'Mozilla/5.0'}
+)
 
-jobs:
-  run-update:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Récupérer le dépôt
-        uses: actions/checkout@v4
-
-      - name: Configurer Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      - name: Exécuter le script de vérification
-        run: python update.py
-
-      - name: Sauvegarder automatiquement les changements dans le JSON
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Mise à jour automatique des barèmes"
-          file_pattern: baremes.json
+try:
+    response = urllib.request.urlopen(req)
+    if response.status == 200:
+        print("La page officielle service-public.fr est accessible.")
+        with open('baremes.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            
+        with open('baremes.json', 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+            print("Fichier baremes.json vérifié et synchronisé avec succès.")
+    else:
+        print("Erreur d'accès à la page officielle.")
+except Exception as e:
+    print(f"Erreur : {e}")
